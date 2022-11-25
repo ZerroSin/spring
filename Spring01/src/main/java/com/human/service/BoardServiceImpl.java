@@ -1,5 +1,7 @@
 package com.human.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -15,5 +17,10 @@ public class BoardServiceImpl implements IF_boardService{
 	@Override
 	public void insertOne(BoardVO boardvo) throws Exception{ 
 		boarddao.insertOne(boardvo);
+	}
+	@Override
+	public List<BoardVO> selectAll() throws Exception {
+		//공사중
+		return boarddao.selectAll();
 	}
 }

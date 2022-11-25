@@ -1,5 +1,8 @@
 package com.human.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,6 +27,15 @@ public class BoardDAOImpl implements IF_boardDAO{
 		// TODO Auto-generated method stub
 		sqlSession.insert(mapperQuery + ".insertOne",boardvo); //쿼리 매핑 및 실행
 			   //<insert>//매핑정보              //id지정	   //파라미터
+	}
+
+	@Override
+	public List<BoardVO> selectAll() throws Exception {
+		// TODO Auto-generated method stub
+		
+		
+		return sqlSession.selectList(mapperQuery + ".selectAll");
+		
 	}
 
 }
