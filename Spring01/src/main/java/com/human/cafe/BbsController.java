@@ -42,7 +42,7 @@ public class BbsController {
 	@RequestMapping(value = "/wrForm", method = RequestMethod.GET)
 	public String wrForm(Locale locale, Model model) {
 		
-		return "wrForm";
+		return "bbs/wrForm";
 	}
 	
 	@RequestMapping(value = "/joinForm", method = RequestMethod.GET)
