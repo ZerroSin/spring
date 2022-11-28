@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.human.dao.IF_joinDAO">
+	<!-- 회원가입하기 -->
+	<insert id="insertOne" parameterType="com.human.vo.MemberVO">
+		<choose>
+			<when test='grade.equals("vip")'>
+				insert into smember values(#{id},#{name},#{tel},#{pass},#{point},default,#{grade})			
+			</when>
+			<otherwise>
+				insert into smember values(#{id},#{name},#{tel},#{pass},default,default,#{grade})
+			</otherwise>		
+		</choose>		
+	</insert>
+	
+	<!-- 회원정보 전체보기 -->
+	<select id ="selectAll" resultType="com.human.vo.MemberVO">
+		select * from smember	
+	</select>
+	
+	<!-- 회원정보 자세히보기 -->
+	<select id ="selectOne" parameterType="com.human.vo.MemberVO" resultType="com.human.vo.MemberVO">
+		select * from smember where id = #{id}
+	</select>
+	
+	<!-- 회원정보 삭제하기 -->
+	<delete id="deleteOne" parameterType="com.human.vo.MemberVO"> 
+		delete from smember where id = #{id}
+	</delete>
+	
+	<!-- 회원정보 수정하기 -->
+	<update id="updateOne" parameterType="com.human.vo.MemberVO">
+	<choose>
+			<when test='grade.equals("vip")'>
+				update smember set name=#{name}, tel=#{tel}, pass=#{pass}, grade=#{grade}, point=#{point} where id=#{id}	
+			</when>
+			<otherwise>
+				update smember set name=#{name}, tel=#{tel}, pass=#{pass}, grade=#{grade}, point=default where id=#{id}
+			</otherwise>		
+		</choose>
+	</update>
+</mapper>
