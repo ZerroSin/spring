@@ -20,8 +20,37 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<beans:property name="maxUploadSize" value="10485760"></beans:property><!-- 10메가로 용량제한하는 설정 -->
+	</beans:bean>
+	<!-- 서버에 올라온 임시공간에 첨부파일이 위치를 선언한 것  String uploadPath="/tmp"
+		자바코드에서 선언해도되는데, 스프링은 컨테이너에서 객체를 가져온다. 즉 스프링에서 객체는 컨테이너에 있다는것이 일반적인 생각
+		그래서 전체 코드에서 알고 있어야하는 설정은 여기서 하는게 좋다-->
+	<beans:bean class="java.lang.String" id="uploadPath">
+		<beans:constructor-arg value="/tmp"></beans:constructor-arg><!-- 운용되는서버 -->
+	<!-- <beans:constructor-arg value="c:\\tmp"></beans:constructor-arg>  로컬드라이버-->
+		<!-- 둘중에 하나만 쓰면됨 -->
+	</beans:bean>
+	
+	
+	
+	<beans:bean id="authenInterceptor" class="com.human.interceptor.AuthenticationInterceptor"></beans:bean>
+	<!-- 객체를 만들어주세요 라는 설정. 이 코드가 인터셉터 기능은 아닙니당 -->
+	<!-- 인터셉터 설정 인터셉터에 적용될 컨트롤러를 매핑으로 설정 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/> <!-- /는 모든것, /** 는 /이하 모든 것 -->
+			<!-- 인터셉터는 로그인과 관련된 컨트롤러 요청은 처리하면 안된다. -->
+			<exclude-mapping path="/"/>
+			<exclude-mapping path="/login**"/>	
+			<exclude-mapping path="/logout**"/>
+			<exclude-mapping path="/resources/**"/>     
+			<beans:ref bean="authenInterceptor"/>	
+		</interceptor>
+	</interceptors>
 	
 	<context:component-scan base-package="com.human.cafe" />
+	<context:component-scan base-package="com.human.util"/> 
 	
 	
 	

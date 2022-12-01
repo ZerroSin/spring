@@ -17,47 +17,45 @@
 </script>
 <body>
    <div id="wrap" align="center">
-      <h1>게시글 등록</h1>
+      <h1>게시글 자세히보기</h1>
       <form name="frm" method="post" action="wrAction" encType="multipart/form-data">
       											<!-- encType을 적어줘야만 첨부파일이 서버로 전송된다. -->
          <table>
             <tr>
                <th>작성자</th>
-               <td><input type="text" name="name"> * 필수
-                  <input type="button" value="등록여부확인">
-                  <input type="hidden" name="duplexChk" vlaue="0">
-               
+               <td>
+               		${boardVO.getName()}
                </td>
             </tr>
-            <tr>
-               <th>비밀번호</th>
-               <td><input type="password" name="pass"> * 필수 (게시물 수정
-                  삭제시 필요합니다.)</td>
-            </tr>
+            
             <tr>
                <th>이메일</th>
-               <td><input type="text" name="email"></td>
+               <td>${boardVO.getEmail()}</td>
             </tr>
             <tr>
                <th>제목</th>
-               <td><input type="text" size="70" name="title"> * 필수</td>
+               <td>${boardVO.getTitle()}</td>
+            </tr>
+            <tr>
+               <th>조회수</th>
+               <td>${boardVO.getCnt()}</td>
             </tr>
             <tr>
                <th>내용</th>
-               <td><textarea cols="70" rows="15" name="content"></textarea></td>
+               <td>${boardVO.getContent()}</td>
             </tr>
             <tr>
                <th>첨부파일</th>
-               <td><input type="file" name ="file"></td><!-- 파일1개만 올리는 샘플 -->
+               <td>
+               		<c:forEach items="${attachList }" var="fname">
+               			<a href="download?filename=${fname}">${fname}</a><br>
+               		</c:forEach>
+              </td>
             </tr>
-            <tr>
-               <th>첨부파일</th>
-               <td><input type="file" name ="file"></td><!-- 파일1개만 올리는 샘플 -->
-            </tr>
+           
          </table>
          <br>
-         <br> <input type="submit" value="등록"> <input type="reset"
-            value="다시 작성"> <input type="button" value="목록"">
+         <br> <input type="button" value="목록" onclick="history.go(-1)">
       </form>
    </div>
    <script type="text/javascript">

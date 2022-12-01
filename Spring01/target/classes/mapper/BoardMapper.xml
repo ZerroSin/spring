@@ -9,8 +9,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into board2 values(board_cnt.nextval,#{name},#{email},#{title},#{content},#{pass},default,default)	
 	</insert>
 	
-	<select id ="selectAll" resultType="com.human.vo.BoardVO">
-		select * from board2	
+	<select id ="selectAll" resultType="com.human.vo.BoardVO"><!--파라미터타입 생략가능 -->
+		select t.* from (select sub.*, rownum as rnum from (select * from board2 order by num DESC) sub) t 
+		where rnum between #{startNo} and #{endNo}
 	</select>
+	<select id ="countBoard" resultType="int">
+		select count(*) from board2
+	</select>
+	<select id="selectOne" resultType="com.human.vo.BoardVO">
+		select * from board2 where num = #{vno}
+	</select>
+	<select id="selectAttach" resultType="String">
+		select fname from board_attach where num = #{vno}
+	</select>
+	<insert id="board_attach" parameterType="String">
+		insert into board_attach values((select max(num) from board2), #{filename}, default)
+	</insert>
+	
 
 </mapper>

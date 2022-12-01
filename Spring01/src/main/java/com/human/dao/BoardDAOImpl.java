@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.human.vo.BoardVO;
+import com.human.vo.PageVO;
 
 @Repository  //dao단임을 알려준다.
 public class BoardDAOImpl implements IF_boardDAO{
@@ -30,12 +31,33 @@ public class BoardDAOImpl implements IF_boardDAO{
 	}
 
 	@Override
-	public List<BoardVO> selectAll() throws Exception {
+	public List<BoardVO> selectAll(PageVO pageVO) throws Exception {
 		// TODO Auto-generated method stub
+		return sqlSession.selectList(mapperQuery + ".selectAll",pageVO);
 		
+	}
+
+	@Override
+	public int countBoard() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(mapperQuery+".countBoard");
+	}
+
+	@Override
+	public void insertAttach(String filename) throws Exception {
+		sqlSession.insert(mapperQuery+".board_attach",filename);		
+	}
+
+	@Override
+	public BoardVO selectOne(String vno) throws Exception {
+		return sqlSession.selectOne(mapperQuery+".selectOne",vno);
 		
-		return sqlSession.selectList(mapperQuery + ".selectAll");
-		
+	}
+
+	@Override
+	public List<String> selectAttach(String vno) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(mapperQuery+".selectAttach",vno);
 	}
 
 }
