@@ -49,4 +49,19 @@ public class BoardServiceImpl implements IF_boardService{
 		// TODO Auto-generated method stub
 		return boarddao.selectAttach(vno);
 	}
+	@Override
+	public void updatecnt(String vno) throws Exception {
+		boarddao.updateCnt(vno);
+		
+	}
+	@Override
+	public void boardDel(String vno) throws Exception {
+		// TODO Auto-generated method stub
+		boarddao.boardDel(vno);
+		
+	}
+	@Override
+	public void updateBoard(BoardVO boardvo) throws Exception {
+		boarddao.updateBoard(boardvo);		
+	}
 }

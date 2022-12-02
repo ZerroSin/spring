@@ -19,4 +19,11 @@ public interface IF_boardDAO {
 	public BoardVO selectOne(String vno) throws Exception;
 	
 	public List<String> selectAttach(String vno) throws Exception;
+	
+	public void updateCnt(String vno) throws Exception;
+	
+	public void boardDel(String vno) throws Exception;
+	
+	public void updateBoard(BoardVO boardvo) throws Exception;
+	
 }

@@ -17,46 +17,47 @@
 </script>
 <body>
    <div id="wrap" align="center">
-      <h1>게시글 자세히보기</h1>
-      <form name="frm" method="post" action="wrAction" encType="multipart/form-data">
+      <h1>게시글 등록</h1>
+      <form name="frm" method="post" action="bbsModAction" encType="multipart/form-data">
       											<!-- encType을 적어줘야만 첨부파일이 서버로 전송된다. -->
          <table>
             <tr>
                <th>작성자</th>
-               <td>
-               		${boardVO.getName()}
+               <td><input type="text" name="name" value="${bvo.getName()}" readonly > 
+               <input type="hidden" name="num" value="${bvo.getNum()}">            
                </td>
             </tr>
-            
+            <tr>
+               <th>비밀번호</th>
+               <td><input type="password" name="pass" value="${bvo.getPass()}"> * 필수 (게시물 수정
+                  삭제시 필요합니다.)</td>
+            </tr>
             <tr>
                <th>이메일</th>
-               <td>${boardVO.getEmail()}</td>
+               <td><input type="text" name="email" value="${bvo.getEmail()}"></td>
             </tr>
             <tr>
                <th>제목</th>
-               <td>${boardVO.getTitle()}</td>
-            </tr>
-            <tr>
-               <th>조회수</th>
-               <td>${boardVO.getCnt()}</td>
+               <td><input type="text" size="70" name="title" value="${bvo.getTitle()}"> * 필수</td>
             </tr>
             <tr>
                <th>내용</th>
-               <td>${boardVO.getContent()}</td>
+               <td><textarea cols="70" rows="15" name="content" >${bvo.getContent()}</textarea></td>
+            </tr>
+            <!--  
+            <tr>
+               <th>첨부파일</th>
+               <td><input type="file" name ="file"></td>
             </tr>
             <tr>
                <th>첨부파일</th>
-               <td>
-               		<c:forEach items="${attachList }" var="fname">
-               			<a href="download?filename=${fname}">${fname}</a><br>
-               			<img src="download?filename=${fname}">
-               		</c:forEach>
-              </td>
+               <td><input type="file" name ="file"></td>
             </tr>
-           
+            -->
          </table>
          <br>
-         <br> <input type="button" value="목록" onclick="history.go(-1)">
+         <br> <input type="submit" value="등록"> <input type="reset"
+            value="다시 작성"> <input type="button" value="목록"">
       </form>
    </div>
    <script type="text/javascript">

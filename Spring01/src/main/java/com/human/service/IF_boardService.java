@@ -21,4 +21,10 @@ public interface IF_boardService {
 	public BoardVO selectOne(String vno) throws Exception;
 	
 	public List<String> selectAttach(String vno) throws Exception;
+	
+	public void updatecnt(String vno) throws Exception;
+	
+	public void boardDel(String vno) throws Exception;
+	
+	public void updateBoard(BoardVO boardvo) throws Exception;
 }

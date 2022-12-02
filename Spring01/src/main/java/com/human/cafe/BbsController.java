@@ -92,13 +92,37 @@ public class BbsController {
 	@RequestMapping(value = "/bbsView", method = RequestMethod.GET)
 	public String bbsView(Locale locale, Model model,@RequestParam("vno") String vno) throws Exception{		
 		//DB작업
+		bsrv.updatecnt(vno);
 		BoardVO tempvo = bsrv.selectOne(vno);
 		System.out.println(tempvo);
+		
 		model.addAttribute("boardVO",tempvo);
 		List<String> attachList = bsrv.selectAttach(vno);
-		model.addAttribute("attachList",attachList);
+		model.addAttribute("attachList",attachList);	
 		//view 지정
 		return "bbs/bbsView";
+	}
+	
+	@RequestMapping(value = "/bbsDel", method = RequestMethod.GET)
+	public String bbsDel(Locale locale, Model model,@RequestParam("vno") String vno) throws Exception{
+		bsrv.boardDel(vno);
+		return "redirect:/bbsList";
+	}
+	
+	
+	@RequestMapping(value = "/bbsMod", method = RequestMethod.GET)
+	public String bbsMod(Locale locale, Model model,@RequestParam("vno") String vno) throws Exception{
+		BoardVO tempvo = bsrv.selectOne(vno);
+		System.out.println(tempvo+"---^^---");
+		System.out.println(tempvo.getName()+"zzzzzz");
+		model.addAttribute("bvo",tempvo);
+		return "bbs/bbsmod";
+	}
+	
+	@RequestMapping(value = "/bbsModAction", method = RequestMethod.POST)
+	public String bbsModAction(Locale locale, Model model,BoardVO bvo) throws Exception{
+		bsrv.updateBoard(bvo);
+		return "redirect:/bbsView?vno="+bvo.getNum();
 	}
 	
 	

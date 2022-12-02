@@ -60,4 +60,25 @@ public class BoardDAOImpl implements IF_boardDAO{
 		return sqlSession.selectList(mapperQuery+".selectAttach",vno);
 	}
 
+	@Override
+	public void updateCnt(String vno) throws Exception {
+		sqlSession.update(mapperQuery+".cntplus",vno);
+		
+	}
+
+	@Override
+	public void boardDel(String vno) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(mapperQuery+".boardDel",vno);
+		
+	}
+
+	@Override
+	public void updateBoard(BoardVO boardvo) throws Exception {
+		sqlSession.update(mapperQuery+".boardUpdate",boardvo);
+		
+	}
+	
+	
+
 }

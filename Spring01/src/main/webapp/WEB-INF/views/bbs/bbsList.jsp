@@ -32,7 +32,10 @@
                <td>${bvo.name }</td>
                <td>${bvo.indate }</td>
                <td>${bvo.cnt }</td>
-               <td>M/D</td>
+               <td>
+               <a href='bbsMod?vno=${bvo.num}'>M</a>/
+               <a href='bbsDel?vno=${bvo.num}'>D</a>
+               </td>
                </tr>      
          
          </c:forEach>
